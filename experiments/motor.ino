@@ -1,0 +1,1 @@
+// This script will take a binary input and effect the motor control
