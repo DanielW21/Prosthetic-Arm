@@ -6,7 +6,7 @@ with open(file_path, 'r') as f:
     raw_data = np.array([float(line.strip()) for line in f if line.strip()])
 
 # Filtering Raw Input
-window_size = 15  # 1/n(sum x_i)
+window_size = 20  # 1/n(sum x_i)
 smoothed_data = np.convolve(np.abs(raw_data), np.ones(window_size)/window_size, mode='same')
 
 plt.figure(figsize=(12, 6))
