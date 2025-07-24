@@ -2,7 +2,6 @@ file_path = 'experiments/EMGData.txt'
 with open(file_path, 'r') as f:
     data = [float(line.strip()) for line in f if line.strip()]
 
-
 threshold = 100  
 min_duration = 5   
 
