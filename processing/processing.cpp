@@ -1,13 +1,15 @@
 #include <Servo.h>
 
 Servo myservo1;
-
 const int servoPin = 11;
 const int vInPin = A0;
 
-const int thresholdRaw = 717; 
-
+// Tracking Variables
 int currentAngle = 0;
+
+// Dynamic Variables
+int thresholdRaw = 614; 
+
 int direction = 1; //increasing = 1, decreasing = -1
 
 bool isAboveThreshold = false;
@@ -26,12 +28,12 @@ void setup() {
 void loop() {
   int analogValue = analogRead(vInPin);
   float voltage = analogValue * (5.0 / 1023.0);
-
-  Serial.print("Analog V_in: ");
-  Serial.print(analogValue);
-  Serial.print(" (");
-  Serial.print(voltage, 2);
-  Serial.println(" V)");
+//
+//  Serial.print("Analog V_in: ");
+//  Serial.print(analogValue);
+//  Serial.print(" (");
+//  Serial.print(voltage, 2);
+//  Serial.println(" V)");
 
   isAboveThreshold = analogValue > thresholdRaw;
   unsigned long currentTime = millis();
@@ -46,7 +48,7 @@ void loop() {
     unsigned long pulseDuration = currentTime - pulseStartTime;
 
     //high > 200ms, step every 200ms
-    if (pulseDuration >= 200 && currentTime - lastStepTime >= 200) {
+    if (pulseDuration >= 1000 && currentTime - lastStepTime >= 200) {
       currentAngle += 5 * direction;
 
       // Clamp angle
@@ -66,7 +68,7 @@ void loop() {
     Serial.print(totalPulse);
     Serial.println(" ms");
 
-    if (totalPulse >= 200 && totalPulse <= 1000) {
+    if (totalPulse >= 200 && totalPulse <= 1200) {
       direction *= -1;
       Serial.print("Direction reversed! Now: ");
       Serial.println((direction == 1) ? "increasing" : "decreasing");
